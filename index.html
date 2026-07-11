@@ -6,6 +6,21 @@
 <title>maNNix — Asesoría tecnológica, redes, WiFi y computadoras | Mannix Tech Services &amp; Solutions</title>
 <meta name="description" content="Pregúntale a maNNix. Asesoría tecnológica y solución de problemas de redes, WiFi y computadoras. Venta e instalación de equipos de red, sonido, cómputo y telefonía IP para casa y oficina en Guayaquil, Ecuador." />
 
+<link rel="canonical" href="https://www.mts-solutions.xyz/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.mts-solutions.xyz/" />
+<meta property="og:site_name" content="maNNix — Mannix Tech Services &amp; Solutions" />
+<meta property="og:title" content="maNNix — Asesoría tecnológica, redes, WiFi y computadoras" />
+<meta property="og:description" content="Pregúntale a maNNix. Asesoría, venta e instalación de equipos de red, sonido, cómputo y telefonía IP para casa y oficina en Guayaquil, Ecuador." />
+<meta property="og:image" content="https://www.mts-solutions.xyz/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="es_EC" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="maNNix — Asesoría tecnológica, redes, WiFi y computadoras" />
+<meta name="twitter:description" content="Pregúntale a maNNix. Asesoría, venta e instalación de equipos de red, sonido, cómputo y telefonía IP para casa y oficina en Guayaquil, Ecuador." />
+<meta name="twitter:image" content="https://www.mts-solutions.xyz/og-image.png" />
+
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -80,9 +95,22 @@
   .nav__links a{ font-size:13.5px; font-weight:500; color:var(--gris-txt); transition:.15s; }
   .nav__links a:hover{ color:var(--negro); }
   .nav__cta{ }
-  .nav__burger{ display:none; }
+  .nav__burger{
+    display:none; background:none; border:0; cursor:pointer; padding:8px;
+    color:var(--negro); margin-left:auto;
+  }
+  .nav__burger svg{ width:24px; height:24px; display:block; }
   @media(max-width:780px){
-    .nav__links a:not(.nav__cta){ display:none; }
+    .nav__burger{ display:block; }
+    .nav__links{
+      display:none; position:absolute; top:66px; left:0; right:0;
+      flex-direction:column; align-items:stretch; gap:0;
+      background:#fff; border-bottom:1px solid var(--gris);
+      padding:8px 24px 20px; box-shadow:0 18px 30px -20px rgba(0,0,0,.25);
+    }
+    .nav__links.open{ display:flex; }
+    .nav__links a{ padding:13px 0; font-size:15px; }
+    .nav__links .nav__cta{ margin-top:10px; justify-content:center; }
   }
 
   /* ============ HERO ============ */
@@ -225,17 +253,18 @@
     <a href="#top" class="nav__logo" aria-label="maNNix — inicio">
       <svg class="wm" viewBox="0 0 300 72" role="img" aria-label="maNNix">
         <text x="4" y="54" class="wm-text" font-size="60">
-          <tspan>ma</tspan><tspan class="nn-span" font-weight="500">NN</tspan><tspan>ix</tspan>
-        </text>
-        <rect class="bridge-bar" fill="#00C2CC" x="0" y="0" width="0" height="0"></rect>
-      </svg>
+          <tspan>ma</tspan><tspan class="nn-span" font-weight="500" fill="#00C2CC">NN</tspan><tspan>ix</tspan>
+        </text>      </svg>
     </a>
-    <nav class="nav__links">
+    <nav class="nav__links" id="navLinks">
       <a href="#servicios">Servicios</a>
       <a href="#proceso">Proceso</a>
       <a href="#contacto" class="nav__cta btn btn--dark">Consultar
         <span class="btn__arrow">→</span></a>
     </nav>
+    <button class="nav__burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
   </div>
 </header>
 
@@ -450,10 +479,8 @@
         <div class="ft__logo">
           <svg class="wm" viewBox="0 0 300 72" role="img" aria-label="maNNix">
             <text x="4" y="54" class="wm-text" font-size="60">
-              <tspan>ma</tspan><tspan class="nn-span" font-weight="500">NN</tspan><tspan>ix</tspan>
-            </text>
-            <rect class="bridge-bar" fill="#00C2CC" x="0" y="0" width="0" height="0"></rect>
-          </svg>
+              <tspan>ma</tspan><tspan class="nn-span" font-weight="500" fill="#00C2CC">NN</tspan><tspan>ix</tspan>
+            </text>          </svg>
         </div>
         <p class="ft__tag">Mannix Tech Services &amp; Solutions — asesoría tecnológica y solución de problemas de redes, WiFi y computadoras. Venta e instalación para casa y oficina en Guayaquil, Ecuador.</p>
       </div>
@@ -487,27 +514,22 @@
 </footer>
 
 <script>
-  // Posiciona el puente cian entre las NN del wordmark (variante recomendada de la guía)
-  function positionBridges(){
-    document.querySelectorAll('svg.wm').forEach(function(svg){
-      var nn = svg.querySelector('.nn-span');
-      var bar = svg.querySelector('.bridge-bar');
-      if(!nn || !bar) return;
-      try{
-        var box = nn.getBBox();
-        var pad = box.width * 0.08;
-        bar.setAttribute('x', box.x - pad);
-        bar.setAttribute('width', box.width + pad*2);
-        bar.setAttribute('y', box.y - box.height*0.16);
-        bar.setAttribute('height', Math.max(3, box.height*0.075));
-        bar.setAttribute('rx', 2.5);
-      }catch(e){}
-    });
-  }
-  window.addEventListener('load', positionBridges);
-  window.addEventListener('resize', positionBridges);
-  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(positionBridges); }
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Menú móvil
+  var burger = document.getElementById('navBurger');
+  var links = document.getElementById('navLinks');
+  burger.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
 </script>
 
 </body>
