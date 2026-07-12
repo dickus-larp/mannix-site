@@ -1,0 +1,17 @@
+# ── Claude Code local settings (per-machine) ──
+.claude/settings.local.json
+
+# ── Secrets ──
+.env
+.env.*
+
+# ── Dependencies / build output (if tooling is ever added) ──
+node_modules/
+
+# ── OS / editor junk ──
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
