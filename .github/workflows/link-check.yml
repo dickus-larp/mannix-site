@@ -1,0 +1,34 @@
+name: link-check
+
+# Verifies the links and assets referenced by the site aren't broken. Runs on
+# changes AND weekly, since an external link can rot without any commit here.
+# lychee excludes mailto:/tel: by default; retries + accepting 429 avoid flaky
+# failures from transient rate-limits. A real 404 exits non-zero and fails the
+# job (lychee-action `fail` defaults to true).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays 06:00 UTC — catch external link rot
+  workflow_dispatch: {}
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2.9.0
+        with:
+          args: >-
+            --no-progress
+            --max-retries 3
+            --retry-wait-time 2
+            --timeout 20
+            --accept 200..=299,429
+            index.html README.md
+          fail: true
